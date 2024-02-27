@@ -1,54 +1,35 @@
 import { Given, Then } from '@badeball/cypress-cucumber-preprocessor'
 import { loginPage } from '../pages/LoginPage'
-import { faker } from '@faker-js/faker'
 import { openNewAccountPage } from '../pages/OpenNewAccountPage'
 import { transferFundsPage } from '../pages/TransferFundsPage'
 import { accountOverviewPage } from '../pages/AccountOverviewPage'
 import { billPaymentPage } from '../pages/BillPaymentPage'
-
-const generateRandomUsername = () => faker.internet.userName()
-const generateRandomPassword = () => faker.internet.password()
+import { registrationPage } from '../pages/RegistrationPage'
 
 Given('I am at Parabank home page', () => {
   cy.visit('/')
 })
 
 Then('the registration form should be displayed', () => {
-  loginPage.elements.registrationForm().should('be.visible')
+  registrationPage.elements.registrationForm().should('be.visible')
   cy.url().should('contains', '/register.htm')
 })
 
 Then('I fill in registration form', () => {
-  cy.fixture('user').then((user) => {
-    loginPage.submitRegistration(
-      user.firstName,
-      user.lastName,
-      user.street,
-      user.city,
-      user.state,
-      user.zipcode,
-      user.phoneNumber,
-      user.ssn
-    )
-  })
+  registrationPage.setRegistrationDetails()
 })
 
 Then('I generate new unique username and password', () => {
-  const randomUsername = generateRandomUsername()
-  const randomPassword = generateRandomPassword()
-  cy.wrap(randomUsername).as('generatedUsername')
-  cy.wrap(randomPassword).as('generatedPassword')
+  registrationPage.getRandomUser()
 })
 
 Then('I fill in new unique username and password', () => {
   cy.get('@generatedUsername').then((username) => {
-    cy.log('Username:', username)
-    loginPage.elements.usernameRegForm().type(username)
-  })
-  cy.get('@generatedPassword').then((password) => {
-    cy.log('Password:', password)
-    loginPage.elements.passwordRegForm().type(password)
-    loginPage.elements.confirmPasswordRegForm().type(password)
+    cy.get('@generatedPassword').then((password) => {
+      registrationPage.setRandomUserDetails(username, password)
+      cy.log('Username:', username)
+      cy.log('Password:', password)
+    })
   })
 })
 
@@ -58,11 +39,7 @@ Then('I click on the {string} button', (btnValue) => {
 })
 
 Then('the successful message should be displayed', () => {
-  loginPage.elements.successfulRegisterText().should('be.visible')
-  loginPage.elements
-    .successfulRegisterText()
-    .invoke('text')
-    .should('contains', 'successful')
+  registrationPage.verifySuccessfulRegistration()
 })
 
 Then('I re-login using the previously created user', () => {
@@ -186,5 +163,3 @@ Then('I verify the final balance for the new account is correct', () => {
     })
   })
 })
-
-
