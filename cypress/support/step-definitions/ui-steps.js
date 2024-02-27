@@ -43,13 +43,11 @@ Then('the successful message should be displayed', () => {
 })
 
 Then('I re-login using the previously created user', () => {
-  cy.get('@generatedUsername').then((username) =>
-    loginPage.elements.usernameInput().type(username)
-  )
-  cy.get('@generatedPassword').then((password) =>
-    loginPage.elements.passwordInput().type(password)
-  )
-  cy.clickButton('Log In')
+  cy.get('@generatedUsername').then((username) => {
+    cy.get('@generatedPassword').then((password) => {
+      loginPage.submitLogin(username, password)
+    })
+  })
 })
 
 Then(
