@@ -1,0 +1,10 @@
+{
+  "firstName": "Cypress",
+  "lastName": "Test",
+  "street": "43 Automation Avenue",
+  "city": "Melbourne",
+  "state": "Victoria",
+  "zipcode": "3000",
+  "phoneNumber": "0456789123",
+  "ssn": "A0392N44ILS399"
+}

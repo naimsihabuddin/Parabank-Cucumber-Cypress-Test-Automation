@@ -1,0 +1,27 @@
+{
+  "name": "fabric-parabank-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cypress:runner": "cypress open --e2e --browser chrome",
+    "cypress:execution": "cypress run --spec cypress/e2e/features/*",
+    "cypress:execution-tags": "cypress run --env tags=@regression"
+  },
+  "keywords": [
+    "cypress",
+    "cucumber",
+    "automation",
+    "e2e"
+  ],
+  "author": "Naim Sihabuddin",
+  "license": "ISC",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+    "@faker-js/faker": "^8.4.1",
+    "cypress": "^13.6.6",
+    "esbuild": "^0.20.1",
+    "multiple-cucumber-html-reporter": "^3.6.2"
+  }
+}
