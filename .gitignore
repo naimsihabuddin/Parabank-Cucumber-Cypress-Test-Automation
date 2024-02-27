@@ -1,5 +1,6 @@
 node_modules
 jsonlogs
+reports
 cucumber-report.html
 cypress/screenshots
 cypress/videos

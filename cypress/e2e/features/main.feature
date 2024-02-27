@@ -54,7 +54,7 @@ Feature: Registration and Fund Management
     Then the section title should display "Bill Payment Complete" text
 
     Then I click on the "Accounts Overview" link
-    # Then I verify the final balance for the new account is correct
+    Then I verify the final balance for the new account is correct
 
     Then I perform GET request for Find Transactions by amount $5
     Then I should be able to see the response is as expected
