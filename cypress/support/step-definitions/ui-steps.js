@@ -137,7 +137,7 @@ Then('I verify the balance of the new account is correct', () => {
 })
 
 Then('I enter the payee details and send the payment', () => {
-  billPaymentPage.setPayeeDetails()
+  billPaymentPage.setPayeeDetails('@newAccountNumber')
   cy.clickButton('Send Payment')
 })
 

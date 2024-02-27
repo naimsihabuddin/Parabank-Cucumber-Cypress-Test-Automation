@@ -13,7 +13,7 @@ class BillPaymentPage {
     sendPaymentBtn: () => cy.get('input[value="Send Payment"]'),
   }
 
-  setPayeeDetails() {
+  setPayeeDetails(newAccountNumberAlias) {
     cy.fixture('payee').then(
       ({
         payeeName,
@@ -34,13 +34,12 @@ class BillPaymentPage {
         this.elements.accNumberInput().type(accountNumber)
         this.elements.verifyAccNumberInput().type(accountNumber)
         this.elements.amountInput().type(amount)
-        cy.get('@newAccountNumber').then((newAccountNumber) => {
+        cy.get(newAccountNumberAlias).then((newAccountNumber) => {
           this.elements.fromAccIdSelection().select(newAccountNumber)
         })
       }
     )
   }
-
 }
 
 export const billPaymentPage = new BillPaymentPage()
