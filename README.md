@@ -26,7 +26,7 @@ Install project dependencies with `npm install`
 
 ## ⛹️‍♂️ Test Execution
 
-- Run test in headless mode: `npm run cypress:execution`
+- Run test in headless mode: `./run_tests.sh`
 - Run with Cypress spec runner: `npm run cypress:runner`
 
 ## 📂 Reporting

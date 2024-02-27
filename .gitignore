@@ -5,3 +5,4 @@ cucumber-report.html
 cypress/screenshots
 cypress/videos
 .DS_Store
+*.txt
