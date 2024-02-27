@@ -13,6 +13,11 @@ class LoginPage {
     this.elements.passwordInput().type(password)
     this.elements.loginBtn().click()
   }
+
+  verifyWelcomeText() {
+    this.elements.welcomeText().should('be.visible')
+    cy.url().should('contains', '/overview.htm')
+  }
 }
 
 export const loginPage = new LoginPage()

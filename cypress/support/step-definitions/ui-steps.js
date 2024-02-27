@@ -50,16 +50,8 @@ Then('I re-login using the previously created user', () => {
   })
 })
 
-Then(
-  'I enter the username {string}, the password {string}, and click on the login button',
-  (username, password) => {
-    loginPage.submitLogin(username, password)
-  }
-)
-
 Then('the welcome text should be displayed', () => {
-  loginPage.elements.welcomeText().should('be.visible')
-  cy.url().should('contains', '/overview.htm')
+  loginPage.verifyWelcomeText()
 })
 
 Then('I click on the {string} link', (linktext) => {
