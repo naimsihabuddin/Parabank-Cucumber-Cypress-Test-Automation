@@ -20,7 +20,7 @@ Then('I fill in registration form', () => {
 })
 
 Then('I generate new unique username and password', () => {
-  registrationPage.getRandomUser()
+  registrationPage.getRandomUser('generatedUsername', 'generatedPassword')
 })
 
 Then('I fill in new unique username and password', () => {
@@ -79,7 +79,7 @@ Then('the section title should display {string} text', (text) => {
 })
 
 Then('I take note on the minimum deposit amount text message', () => {
-  openNewAccountPage.extractAndStoreMinAmount()
+  openNewAccountPage.extractAndStoreMinAmount('extractedAmount')
 })
 
 Then('I extracted the minimum amount to log', () => {
@@ -93,7 +93,7 @@ Then('I create a new saving account', () => {
 })
 
 Then('I take note on the new account number created', () => {
-  openNewAccountPage.getNewAccNumber()
+  openNewAccountPage.getNewAccNumber('newAccountNumber')
 })
 
 Then(
@@ -122,7 +122,7 @@ Then('I transfer ${int} from the new account to the old account', (amount) => {
 })
 
 Then('I take note on the transfer amount', () => {
-  transferFundsPage.getTransferAmount()
+  transferFundsPage.getTransferAmount('transferredAmount')
 })
 
 Then('I verify the balance of the new account is correct', () => {

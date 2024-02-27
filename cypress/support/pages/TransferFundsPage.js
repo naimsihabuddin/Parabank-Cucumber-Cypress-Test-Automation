@@ -15,7 +15,7 @@ class TransferFundsPage {
     this.elements.fromAccSelection().select(accountNumber)
   }
 
-  getTransferAmount() {
+  getTransferAmount(transferredAmountAlias) {
     this.elements
       .successulTransferTextMsg()
       .invoke('text')
@@ -28,7 +28,7 @@ class TransferFundsPage {
           const extractedTrasferredAmount = parseFloat(
             matches[1].replace(/,/g, '')
           )
-          cy.wrap(extractedTrasferredAmount).as('transferredAmount')
+          cy.wrap(extractedTrasferredAmount).as(transferredAmountAlias)
         } else {
           throw new Error(
             'Unable to extract the amount from the transfer text.'

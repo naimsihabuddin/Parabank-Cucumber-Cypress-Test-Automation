@@ -43,11 +43,11 @@ class RegistrationPage {
     )
   }
 
-  getRandomUser() {
+  getRandomUser(usernameAlias, passwordAlias) {
     const randomUsername = () => faker.internet.userName()
     const randomPassword = () => faker.internet.password()
-    cy.wrap(randomUsername()).as('generatedUsername')
-    cy.wrap(randomPassword()).as('generatedPassword')
+    cy.wrap(randomUsername()).as(usernameAlias)
+    cy.wrap(randomPassword()).as(passwordAlias)
   }
 
   setRandomUserDetails(username, password) {

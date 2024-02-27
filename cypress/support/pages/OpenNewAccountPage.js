@@ -17,7 +17,7 @@ class OpenNewAccountPage {
     return this.elements.newAccDepositMsg().invoke('text')
   }
 
-  extractAndStoreMinAmount() {
+  extractAndStoreMinAmount(extractedAmountAlias) {
     return this.getNewAccDepositMsgText().then((minimumDepositText) => {
       const regex = /A minimum of \$([0-9,.]+) must be deposited/
       const matches = minimumDepositText.match(regex)
@@ -25,7 +25,7 @@ class OpenNewAccountPage {
       if (matches && matches.length >= 2) {
         const extractedAmount = parseFloat(matches[1].replace(/,/g, ''))
         cy.wrap(extractedAmount)
-          .as('extractedAmount')
+          .as(extractedAmountAlias)
           .then(() => {
             return extractedAmount
           })
@@ -35,12 +35,12 @@ class OpenNewAccountPage {
     })
   }
 
-  getNewAccNumber() {
+  getNewAccNumber(newAccountNumberAlias) {
     this.elements
       .newAccIdLink()
       .invoke('text')
       .then((text) => {
-        cy.wrap(text).as('newAccountNumber')
+        cy.wrap(text).as(newAccountNumberAlias)
       })
   }
 }
