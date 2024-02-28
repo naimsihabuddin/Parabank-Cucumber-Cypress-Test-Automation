@@ -16,7 +16,6 @@ class RegistrationPage {
     confirmPasswordRegForm: () => cy.get('input[name="repeatedPassword"]'),
     registerBtn: () => cy.get('input[value="Register"]'),
     successfulRegisterText: () => cy.get('div#rightPanel p'),
-    
   }
 
   setRegistrationDetails() {
@@ -44,7 +43,7 @@ class RegistrationPage {
   }
 
   getRandomUser(usernameAlias, passwordAlias) {
-    const randomUsername = () => faker.internet.userName()
+    const randomUsername = () => faker.internet.userName().substring(0, 20).trimEnd()
     const randomPassword = () => faker.internet.password()
     cy.wrap(randomUsername()).as(usernameAlias)
     cy.wrap(randomPassword()).as(passwordAlias)
