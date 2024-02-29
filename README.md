@@ -31,4 +31,4 @@ Install project dependencies with `npm install`
 
 ## 📂 Reporting
 
-- A HTML report is automatically generated after executing `npm run cypress:execution`
+- A HTML report is automatically generated after executing `./run_tests.sh`
