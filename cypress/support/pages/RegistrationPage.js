@@ -50,14 +50,14 @@ class RegistrationPage {
   }
 
   setRandomUserDetails(username, password) {
-    registrationPage.elements.usernameRegForm().type(username)
-    registrationPage.elements.passwordRegForm().type(password)
-    registrationPage.elements.confirmPasswordRegForm().type(password)
+    this.elements.usernameRegForm().type(username)
+    this.elements.passwordRegForm().type(password)
+    this.elements.confirmPasswordRegForm().type(password)
   }
 
   verifySuccessfulRegistration() {
-    registrationPage.elements.successfulRegisterText().should('be.visible')
-    registrationPage.elements
+    this.elements.successfulRegisterText().should('be.visible')
+    this.elements
       .successfulRegisterText()
       .invoke('text')
       .should('contains', 'successful')
