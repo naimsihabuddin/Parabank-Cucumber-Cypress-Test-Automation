@@ -7,7 +7,7 @@
     "cypress:runner": "cypress open --e2e --browser chrome",
     "precypress:execution": "rimraf reports && mkdir reports && echo {} > jsonlogs/log.json",
     "postcypress:execution": "node ./cypress/support/reporter/cucumber-html-report.js",
-    "cypress:execution": "cypress run --spec cypress/e2e/features/*",
+    "cypress:execution": "cypress run --spec 'cypress/e2e/features/*'",
     "cypress:execution-tags": "cypress run --env tags=@regression"
   },
   "keywords": [
