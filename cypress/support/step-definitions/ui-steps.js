@@ -113,6 +113,15 @@ Then(
   }
 )
 
+Then('I take note on the new account current balance', () => {
+  cy.get('@newAccountNumber').then((newAccountNumber) => {
+    accountOverviewPage.getCurrentAccountBalance(
+      newAccountNumber,
+      'currentBalance'
+    )
+  })
+})
+
 Then('I transfer ${int} from the new account to the old account', (amount) => {
   transferFundsPage.setTransferAmount(amount)
   cy.get('@newAccountNumber').then((newAccountNumber) => {
@@ -127,9 +136,10 @@ Then('I take note on the transfer amount', () => {
 
 Then('I verify the balance of the new account is correct', () => {
   cy.get('@newAccountNumber').then((newAccountNumber) => {
-    cy.get('@extractedAmount').then((extractedAmount) => {
+    cy.get('@currentBalance').then((currentBalance) => {
       cy.get('@transferredAmount').then((transferredAmount) => {
-        const balance = extractedAmount - transferredAmount
+        const balance = currentBalance - transferredAmount
+        cy.log(currentBalance, transferredAmount)
         accountOverviewPage.verifyAccountBalance(newAccountNumber, balance)
       })
     })
@@ -143,12 +153,10 @@ Then('I enter the payee details and send the payment', () => {
 
 Then('I verify the final balance for the new account is correct', () => {
   cy.get('@newAccountNumber').then((newAccountNumber) => {
-    cy.get('@extractedAmount').then((extractedAmount) => {
-      cy.get('@transferredAmount').then((transferredAmount) => {
-        cy.fixture('payee').then(({ amount: billingAmount }) => {
-          const balance = extractedAmount - transferredAmount - billingAmount
-          accountOverviewPage.verifyAccountBalance(newAccountNumber, balance)
-        })
+    cy.get('@currentBalance').then((currentBalance) => {
+      cy.fixture('payee').then(({ amount: billingAmount }) => {
+        const balance = currentBalance - billingAmount
+        accountOverviewPage.verifyAccountBalance(newAccountNumber, balance)
       })
     })
   })

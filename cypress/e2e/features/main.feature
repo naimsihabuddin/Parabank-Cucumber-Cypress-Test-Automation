@@ -40,6 +40,7 @@ Feature: Registration and Fund Management
 
     Then I click on the "Accounts Overview" link
     Then I verify a new saving account has been created with the correct balance
+    Then I take note on the new account current balance
 
     Then I click on the "Transfer Funds" link
     Then I transfer $5 from the new account to the old account
@@ -48,6 +49,7 @@ Feature: Registration and Fund Management
 
     Then I click on the "Accounts Overview" link
     Then I verify the balance of the new account is correct
+    Then I take note on the new account current balance
 
     Then I click on the "Bill Pay" link
     Then I enter the payee details and send the payment
