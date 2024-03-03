@@ -139,7 +139,6 @@ Then('I verify the balance of the new account is correct', () => {
     cy.get('@currentBalance').then((currentBalance) => {
       cy.get('@transferredAmount').then((transferredAmount) => {
         const balance = currentBalance - transferredAmount
-        cy.log(currentBalance, transferredAmount)
         accountOverviewPage.verifyAccountBalance(newAccountNumber, balance)
       })
     })
