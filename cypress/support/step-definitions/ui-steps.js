@@ -135,7 +135,7 @@ Then('the section title should display {string} text', (text) => {
 })
 
 Then(
-  'I verify a new saving account has been created with the correct balance',
+  'the new saving account should be created with the correct balance',
   () => {
     cy.get('@newAccountNumber').then((newAccountNumber) => {
       accountOverviewPage.verifyAccountExist(newAccountNumber)
@@ -151,7 +151,7 @@ Then(
   }
 )
 
-Then('I verify the balance of the new account is correct', () => {
+Then('the balance of the new account should be correct', () => {
   cy.get('@newAccountNumber').then((newAccountNumber) => {
     cy.get('@currentBalance').then((currentBalance) => {
       cy.get('@transferredAmount').then((transferredAmount) => {
@@ -162,7 +162,7 @@ Then('I verify the balance of the new account is correct', () => {
   })
 })
 
-Then('I verify the final balance for the new account is correct', () => {
+Then('the final balance for the new account should be correct', () => {
   cy.get('@newAccountNumber').then((newAccountNumber) => {
     cy.get('@currentBalance').then((currentBalance) => {
       cy.fixture('payee').then(({ amount: billingAmount }) => {

@@ -36,7 +36,7 @@ Feature: Registration and Fund Management
     Then the section title should display "Account Opened!" text
     When I take note on the new account number created
     And I click on the "Accounts Overview" link
-    Then I verify a new saving account has been created with the correct balance
+    Then the new saving account should be created with the correct balance
     
     When I take note on the new account current balance
     And I click on the "Transfer Funds" link
@@ -45,7 +45,7 @@ Feature: Registration and Fund Management
     
     When I take note on the transfer amount
     And I click on the "Accounts Overview" link
-    Then I verify the balance of the new account is correct
+    Then the balance of the new account should be correct
     
     When I take note on the new account current balance
     And I click on the "Bill Pay" link
@@ -53,7 +53,7 @@ Feature: Registration and Fund Management
     Then the section title should display "Bill Payment Complete" text
 
     When I click on the "Accounts Overview" link
-    Then I verify the final balance for the new account is correct
+    Then the final balance for the new account should be correct
 
     When I perform GET request for Find Transactions by amount $5
     Then I should be able to see the response is as expected
