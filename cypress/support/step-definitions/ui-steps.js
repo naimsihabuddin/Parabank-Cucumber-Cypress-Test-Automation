@@ -10,10 +10,11 @@ Given('I am at Parabank home page', () => {
   cy.visit('/')
 })
 
-Then('the registration form should be displayed', () => {
-  registrationPage.elements.registrationForm().should('be.visible')
-  cy.url().should('contains', '/register.htm')
-})
+/**
+ *
+ * Action methods
+ *
+ */
 
 Then('I fill in registration form', () => {
   registrationPage.setRegistrationDetails()
@@ -38,20 +39,12 @@ Then('I click on the {string} button', (btnValue) => {
   cy.clickButton(btnValue)
 })
 
-Then('the successful message should be displayed', () => {
-  registrationPage.verifySuccessfulRegistration()
-})
-
 Then('I re-login using the previously created user', () => {
   cy.get('@generatedUsername').then((username) => {
     cy.get('@generatedPassword').then((password) => {
       loginPage.submitLogin(username, password)
     })
   })
-})
-
-Then('the welcome text should be displayed', () => {
-  loginPage.verifyWelcomeText()
 })
 
 Then('I click on the {string} link', (linktext) => {
@@ -74,10 +67,6 @@ Then('I click on the {string} link', (linktext) => {
   }
 })
 
-Then('the section title should display {string} text', (text) => {
-  loginPage.elements.sectionTitle().should('include.text', text)
-})
-
 Then('I take note on the minimum deposit amount text message', () => {
   openNewAccountPage.extractAndStoreMinAmount('extractedAmount')
 })
@@ -95,23 +84,6 @@ Then('I create a new saving account', () => {
 Then('I take note on the new account number created', () => {
   openNewAccountPage.getNewAccNumber('newAccountNumber')
 })
-
-Then(
-  'I verify a new saving account has been created with the correct balance',
-  () => {
-    cy.get('@newAccountNumber').then((newAccountNumber) => {
-      accountOverviewPage.verifyAccountExist(newAccountNumber)
-    })
-    cy.get('@newAccountNumber').then((newAccountNumber) => {
-      cy.get('@extractedAmount').then((extractedAmount) => {
-        accountOverviewPage.verifyAccountBalance(
-          newAccountNumber,
-          extractedAmount
-        )
-      })
-    })
-  }
-)
 
 Then('I take note on the new account current balance', () => {
   cy.get('@newAccountNumber').then((newAccountNumber) => {
@@ -134,6 +106,51 @@ Then('I take note on the transfer amount', () => {
   transferFundsPage.getTransferAmount('transferredAmount')
 })
 
+Then('I enter the payee details and send the payment', () => {
+  billPaymentPage.setPayeeDetails('@newAccountNumber')
+  cy.clickButton('Send Payment')
+})
+
+/**
+ *
+ * Verification methods
+ *
+ */
+
+Then('the registration form should be displayed', () => {
+  registrationPage.elements.registrationForm().should('be.visible')
+  cy.url().should('contains', '/register.htm')
+})
+
+Then('the successful message should be displayed', () => {
+  registrationPage.verifySuccessfulRegistration()
+})
+
+Then('the welcome text should be displayed', () => {
+  loginPage.verifyWelcomeText()
+})
+
+Then('the section title should display {string} text', (text) => {
+  loginPage.elements.sectionTitle().should('include.text', text)
+})
+
+Then(
+  'I verify a new saving account has been created with the correct balance',
+  () => {
+    cy.get('@newAccountNumber').then((newAccountNumber) => {
+      accountOverviewPage.verifyAccountExist(newAccountNumber)
+    })
+    cy.get('@newAccountNumber').then((newAccountNumber) => {
+      cy.get('@extractedAmount').then((extractedAmount) => {
+        accountOverviewPage.verifyAccountBalance(
+          newAccountNumber,
+          extractedAmount
+        )
+      })
+    })
+  }
+)
+
 Then('I verify the balance of the new account is correct', () => {
   cy.get('@newAccountNumber').then((newAccountNumber) => {
     cy.get('@currentBalance').then((currentBalance) => {
@@ -143,11 +160,6 @@ Then('I verify the balance of the new account is correct', () => {
       })
     })
   })
-})
-
-Then('I enter the payee details and send the payment', () => {
-  billPaymentPage.setPayeeDetails('@newAccountNumber')
-  cy.clickButton('Send Payment')
 })
 
 Then('I verify the final balance for the new account is correct', () => {
