@@ -1,6 +1,6 @@
-import { Then } from '@badeball/cypress-cucumber-preprocessor'
+import { When, Then } from '@badeball/cypress-cucumber-preprocessor'
 
-Then(
+When(
   'I perform GET request for Find Transactions by amount ${int}',
   (transactionAmount) => {
     cy.get('@newAccountNumber').then((accountNumber) => {

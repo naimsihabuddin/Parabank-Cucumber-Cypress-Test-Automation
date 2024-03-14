@@ -1,4 +1,4 @@
-import { Given, Then } from '@badeball/cypress-cucumber-preprocessor'
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor'
 import { loginPage } from '../pages/LoginPage'
 import { openNewAccountPage } from '../pages/OpenNewAccountPage'
 import { transferFundsPage } from '../pages/TransferFundsPage'
@@ -16,15 +16,15 @@ Given('I am at Parabank home page', () => {
  *
  */
 
-Then('I fill in registration form', () => {
+When('I fill in registration form', () => {
   registrationPage.setRegistrationDetails()
 })
 
-Then('I generate new unique username and password', () => {
+When('I generate new unique username and password', () => {
   registrationPage.getRandomUser('generatedUsername', 'generatedPassword')
 })
 
-Then('I fill in new unique username and password', () => {
+When('I fill in new unique username and password', () => {
   cy.get('@generatedUsername').then((username) => {
     cy.get('@generatedPassword').then((password) => {
       registrationPage.setRandomUserDetails(username, password)
@@ -34,12 +34,12 @@ Then('I fill in new unique username and password', () => {
   })
 })
 
-Then('I click on the {string} button', (btnValue) => {
+When('I click on the {string} button', (btnValue) => {
   cy.wait(1000)
   cy.clickButton(btnValue)
 })
 
-Then('I re-login using the previously created user', () => {
+When('I re-login using the previously created user', () => {
   cy.get('@generatedUsername').then((username) => {
     cy.get('@generatedPassword').then((password) => {
       loginPage.submitLogin(username, password)
@@ -47,7 +47,7 @@ Then('I re-login using the previously created user', () => {
   })
 })
 
-Then('I click on the {string} link', (linktext) => {
+When('I click on the {string} link', (linktext) => {
   if (
     linktext === 'Open New Account' ||
     linktext === 'Accounts Overview' ||
@@ -67,25 +67,25 @@ Then('I click on the {string} link', (linktext) => {
   }
 })
 
-Then('I take note on the minimum deposit amount text message', () => {
+When('I take note on the minimum deposit amount text message', () => {
   openNewAccountPage.extractAndStoreMinAmount('extractedAmount')
 })
 
-Then('I extracted the minimum amount to log', () => {
+When('I extracted the minimum amount to log', () => {
   cy.get('@extractedAmount').then((extractedAmount) => {
     cy.log('New Account Minimum Deposit:', extractedAmount)
   })
 })
 
-Then('I create a new saving account', () => {
+When('I create a new saving account', () => {
   openNewAccountPage.setAccountType('SAVINGS')
 })
 
-Then('I take note on the new account number created', () => {
+When('I take note on the new account number created', () => {
   openNewAccountPage.getNewAccNumber('newAccountNumber')
 })
 
-Then('I take note on the new account current balance', () => {
+When('I take note on the new account current balance', () => {
   cy.get('@newAccountNumber').then((newAccountNumber) => {
     accountOverviewPage.getCurrentAccountBalance(
       newAccountNumber,
@@ -94,7 +94,7 @@ Then('I take note on the new account current balance', () => {
   })
 })
 
-Then('I transfer ${int} from the new account to the old account', (amount) => {
+When('I transfer ${int} from the new account to the old account', (amount) => {
   transferFundsPage.setTransferAmount(amount)
   cy.get('@newAccountNumber').then((newAccountNumber) => {
     transferFundsPage.setFromAccount(newAccountNumber)
@@ -102,11 +102,11 @@ Then('I transfer ${int} from the new account to the old account', (amount) => {
   cy.clickButton('Transfer')
 })
 
-Then('I take note on the transfer amount', () => {
+When('I take note on the transfer amount', () => {
   transferFundsPage.getTransferAmount('transferredAmount')
 })
 
-Then('I enter the payee details and send the payment', () => {
+When('I enter the payee details and send the payment', () => {
   billPaymentPage.setPayeeDetails('@newAccountNumber')
   cy.clickButton('Send Payment')
 })
